@@ -1,52 +1,34 @@
-// Type
-type Order = {
-    productName: string,
-    price: number
+//class
+interface IPerson {
+    id: number;
+
+    sayMyName(): string;
 }
 
+class Person implements IPerson {
+    readonly id: number;
+    protected name: string; //Here and subclass
+    private age: number; //Only here
 
-type User = {
-    firstName: string,
-    age: number,
-    email?: string, //? means that its optional
-    password?: string,
-    orders?: Order[]
-};
+    constructor(id: number, name: string, age: number){
+        this.id = id;
+        this.name = name;
+        this.age = age;
+    }
 
-const user: User = {
-    firstName: "André Luiz",
-    age: 18,
-    email: 'email@gmail.com',
-    password: '123456789',
-    orders: [{productName: 'Pizza and Soda', price: 15}]
+    sayMyName(): string {
+        return this.name;
+    }
 }
 
-const showEmail = (yourEmail?: string) => {
-    console.log(yourEmail);
+class Employee extends Person{
+    constructor(id: number, name: string, age: number){
+        super(id, name, age);
+    }
+
+    whoAmI(){
+        return this.name;
+    }
 }
 
-showEmail(user.email);
-
-//Unions
-type Author = {
-    books: string[];
-}
-
-const author: Author & User = {
-    firstName: "John may",
-    age: 78,
-    email: 'email@gmail.com',
-    password: '123456789',
-    books: ['Fire and storm', 'Fire and water']
-}
-
-//Interfaces
-interface UserInterface {
-    readonly firstName: string, //can't be modified if assigned
-    email: String
-}
-
-const userName: UserInterface = {
-    firstName: 'I cant change my name',
-    email: 'dsadsa@gmail.com'
-}
+const pessoa = new Person(1, 'André Luiz', 18);
